@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class UserCredentialsController {
 
     @Autowired
@@ -50,7 +50,6 @@ public class UserCredentialsController {
 
     @GetMapping("/validate/token")
     public ResponseEntity<Map<String, Object>> validateToken(@RequestParam String token) {
-        Map<String, Object> response = new HashMap<>();
         boolean isValid = userCredService.verifyToken(token);
         response.put("isValid", isValid);
         response.put("status", isValid ? "success" : "error");
