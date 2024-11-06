@@ -49,12 +49,9 @@ public class UserCredentialsController {
 
 
     @GetMapping("/validate/token")
-    public ResponseEntity<Map<String, Object>> validateToken(@RequestParam String token) {
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<Boolean> validateToken(@RequestParam String token) {
         boolean isValid = userCredService.verifyToken(token);
-        response.put("isValid", isValid);
-        response.put("status", isValid ? "success" : "error");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(isValid);
     }
 
     @PostMapping("/login")

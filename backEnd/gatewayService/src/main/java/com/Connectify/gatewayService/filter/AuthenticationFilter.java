@@ -28,7 +28,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
         return ((exchange, chain) -> {
             // for the uris NOT specified in the RouteValidator do the following steps
             if (validator.isSecured.test(exchange.getRequest())) {
-                if (!exchange.getRequest().getHeaders().containsKey(org.springframework.http.HttpHeaders.AUTHORIZATION)) {
+                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     throw new MissingAuthorizationHeaderException("Authorization header is missing");
                 }
 
@@ -39,6 +39,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     throw new InvalidTokenException("Token is malformed or missing the Bearer prefix");
                 }
 
+
                 try {
                     RestClient restClient = RestClient.create();
                     Boolean isValid = restClient
@@ -48,6 +49,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                             .body(Boolean.class);
 
                     if (!isValid) {
+
                         throw new InvalidTokenException("Token validation failed");
                     }
                 } catch (Exception e) {
