@@ -12,7 +12,7 @@ public class RouteValidator {
 //    it will list the endpoint no need to verify allow them to the service
     public static final List<String> openApiEndpoints = List.of(
             "/register",
-            "/validate/user",
+            "/login",
             "/validate/token"
             );
     public Predicate<ServerHttpRequest> isSecured = request -> openApiEndpoints
